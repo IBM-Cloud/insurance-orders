@@ -1,8 +1,15 @@
 ---
 applications:
-- name: MicroservicesOrdersAPI
+- services
+  - myMicroservicesSQL
+name: MicroservicesOrdersAPI
 host: ms-ordersAPI-${random-word}
 path: JavaOrdersAPI.war
 domain: mybluemix.net
 instances: 1
 memory: 128M
+
+declared-services:
+  myMicroservicesSQL:
+    label: sqldb
+    plan:  sqldb_free
