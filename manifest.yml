@@ -1,6 +1,6 @@
 ---
 applications:
-- services
+- services:
   - myMicroservicesSQL
 name: MicroservicesOrdersAPI
 host: ms-ordersAPI-${random-word}
