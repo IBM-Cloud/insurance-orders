@@ -2,6 +2,7 @@
 applications:
 - services:
   - myMicroservicesSQL
+  - mqLightService
 name: MicroservicesOrdersAPI
 host: ms-ordersAPI-${random-word}
 path: JavaOrdersAPI.war
@@ -13,3 +14,6 @@ declared-services:
   myMicroservicesSQL:
     label: sqldb
     plan:  sqldb_free
+  mqLightService:
+    label: mqlight
+    plan:  standard

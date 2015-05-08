@@ -39,4 +39,11 @@
     <res-auth>Container</res-auth>
     <res-sharing-scope>Shareable</res-sharing-scope>
   </resource-ref>
+  <resource-ref>
+      <description />
+      <res-ref-name>jms/mqLightService</res-ref-name>
+      <res-type>javax.jms.ConnectionFactory</res-type>
+      <res-auth>Container</res-auth>
+      <res-sharing-scope>Shareable</res-sharing-scope>
+  </resource-ref>
 </web-app>
