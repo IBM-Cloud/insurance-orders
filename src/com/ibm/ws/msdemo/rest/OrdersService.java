@@ -131,20 +131,19 @@ public class OrdersService {
 	public Response create(Order order) {
 		System.out.println("New order: " + order.toString());
 
-		boolean USE_FASTCACHE = false;
-		if (order.getExpedite() == 1) {
+		boolean ENABLE_FASTCACHE = true;
+		
+		if (order.getExpedite() == 1 && ENABLE_FASTCACHE) {
 			int customerId = 0;
 			try {
 				customerId = Integer.valueOf(order.getCustomerid()).intValue();
-				USE_FASTCACHE = customerId > 0 && customerId % 3 == 0;
+				if (customerId % 2 == 0) {
+					/* simulate a failure */
+					return Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).build();
+				}
 			} catch (NumberFormatException e) {
 				/* just proceed normally */
 			}
-		}
-
-		if (USE_FASTCACHE) {
-			/* simulate a failure */
-			return Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 
 		try {
