@@ -61,6 +61,8 @@ public class OrdersService {
     
     /** JVM-wide initialisation of our subscription */
     private static boolean subInitialised = false;
+    
+    static boolean ENABLE_FASTCACHE = false;
 
 	public OrdersService(){
 		utx = getUserTransaction();
@@ -131,8 +133,6 @@ public class OrdersService {
 	public Response create(Order order) {
 		System.out.println("New order: " + order.toString());
 
-		boolean ENABLE_FASTCACHE = true;
-		
 		if (order.getExpedite() == 1 && ENABLE_FASTCACHE) {
 			int customerId = 0;
 			try {
