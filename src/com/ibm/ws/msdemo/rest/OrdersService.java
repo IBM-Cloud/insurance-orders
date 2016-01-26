@@ -130,6 +130,23 @@ public class OrdersService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response create(Order order) {
 		System.out.println("New order: " + order.toString());
+
+		boolean USE_FASTCACHE = false;
+		if (order.getExpedite() == 1) {
+			int customerId = 0;
+			try {
+				customerId = Integer.valueOf(order.getCustomerid()).intValue();
+				USE_FASTCACHE = customerId > 0 && customerId % 3 == 0;
+			} catch (NumberFormatException e) {
+				/* just proceed normally */
+			}
+		}
+
+		if (USE_FASTCACHE) {
+			/* simulate a failure */
+			return Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+
 		try {
 			utx.begin();
 			em.persist(order);
