@@ -32,9 +32,6 @@ public class Order {
 	@Basic
 	@Column(name = "count")
 	int count;
-
-	@Transient
-	int expedite;
 	
 	public long getId() {
 		return id;
@@ -64,17 +61,10 @@ public class Order {
 		this.count = count;
 	}
 
-	public int getExpedite() {
-		return expedite;
-	}
-	public void setExpedite(int expedite) {
-		this.expedite = expedite;
-	}
-
 	@Override
 	public String toString() {
 		return "{id = " + id + ", itemid=" + itemid + ", customerid=" + customerid
-				+ ", count=" + count + ", expedite=" + expedite + "}";
+				+ ", count=" + count + "}";
 	}
 
 
