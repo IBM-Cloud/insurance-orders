@@ -61,6 +61,8 @@ public class OrdersService {
     
     /** JVM-wide initialisation of our subscription */
     private static boolean subInitialised = false;
+    
+    static boolean ENABLE_FASTCACHE = false;
 
 	public OrdersService(){
 		utx = getUserTransaction();
@@ -130,6 +132,20 @@ public class OrdersService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response create(Order order) {
 		System.out.println("New order: " + order.toString());
+
+		if (order.getExpedite() == 1 && ENABLE_FASTCACHE) {
+			int customerId = 0;
+			try {
+				customerId = Integer.valueOf(order.getCustomerid()).intValue();
+				if (customerId % 2 == 0) {
+					/* simulate a failure */
+					return Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).build();
+				}
+			} catch (NumberFormatException e) {
+				/* just proceed normally */
+			}
+		}
+
 		try {
 			utx.begin();
 			em.persist(order);

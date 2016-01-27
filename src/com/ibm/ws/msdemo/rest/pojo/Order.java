@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "OrderTable")
@@ -31,6 +32,9 @@ public class Order {
 	@Basic
 	@Column(name = "count")
 	int count;
+
+	@Transient
+	int expedite;
 	
 	public long getId() {
 		return id;
@@ -45,22 +49,32 @@ public class Order {
 	public void setItemid(String itemid) {
 		this.itemid = itemid;
 	}
+
 	public String getCustomerid() {
 		return customerid;
 	}
 	public void setCustomerid(String customer_id) {
 		this.customerid = customer_id;
 	}
+
 	public int getCount() {
 		return count;
 	}
 	public void setCount(int count) {
 		this.count = count;
 	}
+
+	public int getExpedite() {
+		return expedite;
+	}
+	public void setExpedite(int expedite) {
+		this.expedite = expedite;
+	}
+
 	@Override
 	public String toString() {
 		return "{id = " + id + ", itemid=" + itemid + ", customerid=" + customerid
-				+ ", count=" + count + "}";
+				+ ", count=" + count + ", expedite=" + expedite + "}";
 	}
 
 
