@@ -6,7 +6,7 @@ applications:
 name: MicroservicesOrdersAPI
 path: JavaOrdersAPI.war
 instances: 1
-memory: 512M
+memory: 128M
 
 declared-services:
   myMicroservicesSQL:
