@@ -4,10 +4,9 @@ applications:
   - myMicroservicesSQL
   - mqLightService
 name: MicroservicesOrdersAPI
-host: ms-ordersAPI-${random-word}
 path: JavaOrdersAPI.war
 instances: 1
-memory: 512M
+memory: 192M
 
 declared-services:
   myMicroservicesSQL:
