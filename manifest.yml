@@ -2,7 +2,6 @@
 applications:
 - services:
   - myMicroservicesSQL
-  - mqLightService
 name: MicroservicesOrdersAPI
 path: JavaOrdersAPI.war
 instances: 1
@@ -12,6 +11,3 @@ declared-services:
   myMicroservicesSQL:
     label: sqldb
     plan:  sqldb_free
-  mqLightService:
-    label: mqlight
-    plan:  standard
