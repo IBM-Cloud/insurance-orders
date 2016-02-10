@@ -1,5 +1,5 @@
 var ibmdb = require('ibm_db');
-var TABLE_NAME = "Orders";
+var TABLE_NAME = "OrdersTable";
 initDB();
 
 /* clients are responsible for closing the returned connection */
@@ -32,20 +32,9 @@ function initDB() {
 		if (error) {
 			console.log("initDB failed to get a db connection: " + error);
 		} else {
-			var sqlStatement = "CREATE TABLE " + TABLE_NAME + "(OrderId int not null GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),itemId varchar(64),customerId int,count int)";
+			var sqlStatement = "CREATE TABLE " + TABLE_NAME + "(id int not null GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),itemId varchar(64),customerId int,count int)";
 			connection.query(sqlStatement, function (err, tables, moreResultSets) {
-				if (err) {
-					/* likely indicates that the table already exists from a previous run, so clear it */
-					sqlStatement = "TRUNCATE TABLE " + TABLE_NAME + " IMMEDIATE";
-					connection.query(sqlStatement, function (e, tables, moreResultSets) {
-						if (e) {
-							console.log("Error initializing table: " + e);
-						}
-						connection.close();
-					});
-				} else {
-					connection.close();
-				}
+				connection.close();
 			});
 		}
 	});
@@ -87,7 +76,11 @@ exports.find = function(req, res) {
 				if (err) {
 					res.status(500).send({msg: "'find' SQL Error: " + err});
 				} else {
-					res.send(JSON.stringify(tables[0]));
+					if (tables.length) {
+						res.send(JSON.stringify(tables[0]).toLocaleLowerCase());
+					} else {
+						res.send("");
+					}
 				}
 				connection.close();
 			});
@@ -111,7 +104,7 @@ exports.list = function(req, res) {
 						result = "No orders logged";
 					} else {
 						for (var i = 0; i < tables.length;i++) {
-							result += JSON.stringify(tables[i]) + "<p>";
+							result += JSON.stringify(tables[i]).toLocaleLowerCase() + "<p>";
 						}
 					}
 					res.send(result);
