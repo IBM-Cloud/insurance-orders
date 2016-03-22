@@ -1,13 +1,13 @@
 ---
 applications:
 - services:
-  - myMicroservicesSQL
+  - myMicroservicesCloudant
 name: MicroservicesOrdersAPI
 path: .
 instances: 1
 memory: 96M
 
 declared-services:
-  myMicroservicesSQL:
-    label: sqldb
-    plan:  sqldb_free
+  myMicroservicesCloudant:
+    label: cloudantNoSQLDB
+    plan: Shared
