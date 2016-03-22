@@ -8,13 +8,10 @@
   "dependencies": {
     "body-parser": "1.12.x",
     "cfenv": "1.0.x",
+    "cloudant": "*",    
     "consolidate": "0.11.x",
     "cors": "2.5.x",
     "express": "3.20.x",
-    
-"ibm_db": ">=0.0.1",
-
-    
     "chai": "latest",
     "chai-as-promised": "latest",
     "colors": "latest",
