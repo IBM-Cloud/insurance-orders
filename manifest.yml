@@ -1,13 +1,12 @@
 ---
-applications:
-- services:
-  - myMicroservicesCloudant
-name: MicroservicesOrdersAPI
-path: .
-instances: 1
-memory: 96M
-
 declared-services:
-  myMicroservicesCloudant:
+  policy-db:
     label: cloudantNoSQLDB
     plan: Shared
+applications:
+- name: insurance-orders
+  path: .
+  instances: 1
+  memory: 128M
+  services:
+  - policy-db

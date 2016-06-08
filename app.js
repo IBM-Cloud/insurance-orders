@@ -8,7 +8,7 @@ var cors = require('cors');
 var appEnv = cfenv.getAppEnv();
 
 //Setup Cloudant Service.
-cloudantService = appEnv.getService("myMicroservicesCloudant");
+cloudantService = appEnv.getService("policy-db");
 
 //Setup middleware.
 var app = express();
@@ -19,9 +19,9 @@ app.use(express.static(path.join(__dirname, 'www')));
 
 //REST HTTP Methods
 var orders = require('./routes/orders');
-app.get('/rest/orders', orders.list);
-app.get('/rest/orders/:id', orders.find);
-app.post('/rest/orders', orders.create);
+app.get('/orders', orders.list);
+app.get('/orders/:id', orders.find);
+app.post('/orders', orders.create);
 
 app.listen(appEnv.port, appEnv.bind);
 console.log('App started on ' + appEnv.bind + ':' + appEnv.port);

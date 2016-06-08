@@ -40,19 +40,10 @@ exports.find = function(req, res) {
 /* list all orders */
 exports.list = function(req, res) {
 	ordersDb.list({include_docs: true}, function(err, body/*, headers*/) {
-  		if (err) {
-    		// something went wrong!
-			res.status(500).send({msg: "'list' failed: " + err});			
-  		} else {
-			var result = "";
-			if (!body.rows) {
-				result = "No orders logged";
-			} else {
-		    	body.rows.forEach(function(doc) {
-		      		result += JSON.stringify(doc).toLocaleLowerCase() + "<p>";
-		    	});
-		    }
-		    res.send(result);
-  		}
+    if (!err) {
+        res.send(body);
+        return;
+    }
+   	res.status(500).send({msg:'Error listing orders: ' + err});
 	});
 };

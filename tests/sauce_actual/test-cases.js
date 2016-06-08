@@ -68,7 +68,7 @@ describe('OrdersAPI(' + desired.browserName + ')', function() {
         browser
             .get(url)
             .title()
-            .should.become("Orders RESTful API")
+            .should.become("Policy Orders API")
             .nodeify(done);
     });
 });
