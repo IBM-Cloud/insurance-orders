@@ -1,8 +1,10 @@
 # insurance-orders
 
+[![Build Status](https://travis-ci.org/IBM-Bluemix/insurance-orders.svg?branch=master)](https://travis-ci.org/IBM-Bluemix/insurance-orders)
+
 A Node.js app that serves as an API into the orders database for the [insurance-store-front][store_front_url]. To store the insurance policy orders, we use a [Cloudant NoSQL DB][cloudant_url].
 
-In order to deploy the full set of microservices involved in the insurance-store demo, check out the [insurance-toolchain repo][toolchain_url].
+In order to deploy the full set of microservices involved in the insurance-store demo, check out the [insurance-toolchain repo][toolchain_url]. Otherwise, you can deploy just this app with the following button
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy)
 
@@ -44,6 +46,39 @@ In order to deploy the full set of microservices involved in the insurance-store
 
 And voila! You now have your very own instance of the Insurance Orders API running on Bluemix.
 
+## Run the app locally
+
+1. If you do not already have a Bluemix account, [sign up here][bluemix_reg_url]
+
+2. If you have not already, [download Node.js][download_node_url] and install it on your local machine.
+
+3. Clone the app to your local environment from your terminal using the following command:
+
+  ```
+  git clone https://github.com/IBM-Bluemix/insurance-orders.git
+  ```
+
+4. `cd` into this newly created directory
+
+5. Create a [Cloudant service][cloudant_service_url] named `policy-db` using your Bluemix account and replace the corresponding credentials in your `vcap-local.json` file
+
+6. Install the required npm packages using the following command
+
+  ```
+  npm install
+  ```
+
+7. Start your app locally with the following command
+
+  ```
+  npm start
+  ```
+
+This command will start your Node.js web server and print the address where it is listening to requests in the console: `server starting on http://localhost:6037`.
+
+## Contribute
+If you find a bug, please report it via the [Issues section][issues_url] or even better, fork the project and submit a pull request with your fix! We are more than happy to accept external contributions to this project if they address something noted in an existing issue.  In order to be considered, pull requests must pass the initial [Travis CI][travis_url] build and/or add substantial value to the sample application.
+
 ## Troubleshooting
 
 The primary source of debugging information for your Bluemix app is the logs. To see them, run the following command using the Cloud Foundry CLI:
@@ -53,6 +88,10 @@ The primary source of debugging information for your Bluemix app is the logs. To
   ```
 For more detailed information on troubleshooting your application, see the [Troubleshooting section](https://www.ng.bluemix.net/docs/troubleshoot/tr.html) in the Bluemix documentation.
 
+## License
+
+See [License.txt](License.txt) for license information.
+
 <!--Links-->
 [store_front_url]: https://github.com/IBM-Bluemix/insurance-store-front
 [toolchain_url]: https://github.com/IBM-Bluemix/insurance-toolchain
@@ -60,3 +99,6 @@ For more detailed information on troubleshooting your application, see the [Trou
 [cloud_foundry_url]: https://github.com/cloudfoundry/cli
 [cloudant_url]: https://cloudant.com/
 [cloudant_service_url]: https://new-console.ng.bluemix.net/catalog/services/cloudant-nosql-db/
+[download_node_url]: https://nodejs.org/download/
+[issues_url]: https://github.com/ibm-bluemix/insurance-orders/issues
+[travis_url]: https://travis-ci.org/

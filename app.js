@@ -7,8 +7,23 @@ var path = require('path');
 var cors = require('cors');
 var appEnv = cfenv.getAppEnv();
 
-//Setup Cloudant Service.
-cloudantService = appEnv.getService("policy-db");
+// Setup the required environment variables
+var vcapLocal = null;
+try {
+  vcapLocal = require("./vcap-local.json");
+}
+catch (e) {}
+
+var appEnvOpts = vcapLocal ? {vcap:vcapLocal} : {};
+var appEnv = cfenv.getAppEnv(appEnvOpts);
+
+// Setup Cloudant service
+try {
+	cloudantService = appEnv.getService("policy-db");
+}
+catch (e) {
+	console.error("Error looking up service: ", e);
+}
 
 //Setup middleware.
 var app = express();

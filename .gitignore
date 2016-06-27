@@ -1,5 +1,6 @@
 bin/
 launchConfigurations/
-*.war
-*.class
+node_modules/
 *.DS_STORE
+#.log
+vcap-local.json
