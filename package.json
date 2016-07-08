@@ -23,8 +23,12 @@
     "grunt-simple-mocha": "latest",
     "lodash": "latest",
     "mocha": "^2.3.3",
+    "request": "2.72.x",
     "spec-xunit-file": "0.0.1-3",
     "wd": "latest"
+  },
+  "devDependencies": {
+    "dotenv": "2.0.x"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,22 @@
 /*eslint-env node */
 /*globals cloudantService */
 var cloudant = require('cloudant')(cloudantService.credentials.url);
+var request = require('request');
+var cfenv = require("cfenv"),
+    appEnv = cfenv.getAppEnv();
+
+// Get URLs for Catalog API
+var appName;
+if (appEnv.isLocal) {
+    require('dotenv').load();
+    appName = process.env.CF_APP_NAME;
+}
+else {
+    appName = JSON.parse(process.env.VCAP_APPLICATION).name;
+}
+var domainPrefix = appName.substr(0, appName.indexOf("insurance") + 10);
+var catalog_url = "https://" + domainPrefix + "catalog.mybluemix.net";
+
 
 //Initiate the database.
 cloudant.db.create('orders', function(err/*, body*/) {
@@ -15,13 +31,33 @@ var ordersDb = cloudant.use('orders');
 
 /* add an order to the database */
 exports.create = function(req, res) {
-	ordersDb.insert(req.body, function(err/*, body, header*/) {
-		if (err){
-			res.status(500).send({msg: 'Error on insert, maybe the item already exists: ' + err});
-		} else {
-			res.status(201).send({msg: 'Successfully created item'});
-		}
-	});
+    request.get(catalog_url + '/policies', function (err, response) {
+        if (err)
+            return res.status(500).send({msg: 'Error on insert, unable to verify order validity: ' + err});
+
+        // Make sure policy with ID exists
+        var policies = JSON.parse(response.body).rows,
+            validPolicy = false;
+        for (var i=0; i < policies.length; i++) {
+            if (policies[i].id === req.body.itemid) {
+                validPolicy = true;
+                break;
+            }
+        }
+        
+        // If invalid policy, return error
+        if (!validPolicy)
+            return res.status(422).send({msg: 'Order request not completed due to invalid policy ID'});
+
+        // Create order in the DB
+        ordersDb.insert(req.body, function(err) {
+            if (err){
+                res.status(500).send({msg: 'Error on insert, maybe the item already exists: ' + err});
+            } else {
+                res.status(201).send({msg: 'Successfully created item'});
+            }
+        });
+    });
 };
     
 
