@@ -18,8 +18,17 @@ var appEnvOpts = vcapLocal ? {vcap:vcapLocal} : {};
 var appEnv = cfenv.getAppEnv(appEnvOpts);
 
 // Setup Cloudant service
+var appName;
+if (appEnv.isLocal) {
+    require('dotenv').load();
+    appName = process.env.CF_APP_NAME;
+}
+else {
+    appName = JSON.parse(process.env.VCAP_APPLICATION).name;
+}
 try {
-	cloudantService = appEnv.getService("policy-db");
+	var policyDb = appName.substr(0, appName.indexOf("insurance")) + "policy-db";
+	cloudantService = appEnv.getService(policyDb);
 }
 catch (e) {
 	console.error("Error looking up service: ", e);
