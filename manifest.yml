@@ -1,13 +1,8 @@
 ---
 declared-services:
-  policy-db:
-    label: cloudantNoSQLDB
-    plan: Shared
 applications:
 - name: insurance-orders
   path: .
   instances: 1
   memory: 128M
   buildpack: sdk-for-nodejs
-  services:
-  - policy-db

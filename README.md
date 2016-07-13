@@ -4,9 +4,7 @@
 
 A Node.js app that serves as an API into the orders database for the [insurance-store-front][store_front_url]. To store the insurance policy orders, we use a [Cloudant NoSQL DB][cloudant_url].
 
-In order to deploy the full set of microservices involved in the insurance-store demo, check out the [insurance-toolchain repo][toolchain_url]. Otherwise, you can deploy just this app with the following button
-
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy)
+In order to deploy the full set of microservices involved in the insurance-store demo, check out the [insurance-toolchain repo][toolchain_url]. Otherwise, you can deploy just the app by following the steps here.
 
 ## Running the app on Bluemix
 
@@ -38,10 +36,22 @@ In order to deploy the full set of microservices involved in the insurance-store
   $ cf create-service cloudantNoSQLDB Shared policy-db
   ```
 
-8. Push the app to Bluemix.
+8. Push the app to Bluemix
 
   ```
-  $ cf push
+  $ cf push --no-start
+  ```
+
+9. Bind the Cloudant service to your app
+
+  ```
+  $ cf bind-service insurance-orders policy-db
+  ```
+
+10. Start your app
+
+  ```
+  $ cf start insurance-orders
   ```
 
 And voila! You now have your very own instance of the Insurance Orders API running on Bluemix.
