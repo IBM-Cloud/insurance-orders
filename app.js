@@ -21,14 +21,10 @@ var appEnv = cfenv.getAppEnv(appEnvOpts);
 var appName;
 if (appEnv.isLocal) {
     require('dotenv').load();
-    appName = process.env.CF_APP_NAME;
-}
-else {
-    appName = JSON.parse(process.env.VCAP_APPLICATION).name;
 }
 try {
-	var policyDb = appName.substr(0, appName.indexOf("insurance")) + "policy-db";
-	cloudantService = appEnv.getService(policyDb);
+	cloudantService = appEnv.services.cloudantNoSQLDB[0];
+  catalog_url = process.env.CATALOG_URL;
 }
 catch (e) {
 	console.error("Error looking up service: ", e);
@@ -47,6 +43,8 @@ app.get('/orders', orders.list);
 app.get('/orders/:id', orders.find);
 app.post('/orders', orders.create);
 
-app.listen(appEnv.port, appEnv.bind);
-console.log('App started on ' + appEnv.bind + ':' + appEnv.port);
-
+// start server on the specified port and binding host
+app.listen(appEnv.port, "0.0.0.0", function () {
+  // print a message when the server starts listening
+  console.log("orders server starting on " + appEnv.url);
+});
