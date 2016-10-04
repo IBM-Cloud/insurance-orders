@@ -4,3 +4,4 @@ launchConfigurations/
 *.DS_STORE
 *.log
 vcap-local.json
+.env

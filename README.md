@@ -48,7 +48,13 @@ In order to deploy the full set of microservices involved in the insurance-store
   $ cf bind-service insurance-orders policy-db
   ```
 
-10. Start your app
+1. Define a variable pointing to the Catalog API deployment.
+
+  ```
+  cf set-env insurance-orders CATALOG_URL https://your-catalog-api-server.mybluemix.net
+  ```
+
+1. Start your app
 
   ```
   $ cf start insurance-orders
@@ -71,6 +77,12 @@ And voila! You now have your very own instance of the Insurance Orders API runni
 4. `cd` into this newly created directory
 
 5. Create a [Cloudant service][cloudant_service_url] named `policy-db` using your Bluemix account and replace the corresponding credentials in your `vcap-local.json` file
+
+1. In the checkout directory, copy the file ```.template.env``` to ```.env```. Edit ```.env``` and update the location of the Catalog API.
+
+  ```
+  cp .template.env .env
+  ```
 
 6. Install the required npm packages using the following command
 
