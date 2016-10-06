@@ -1,22 +1,10 @@
 /*eslint-env node */
-/*globals cloudantService */
+/*globals cloudantService catalog_url */
 var cloudant = require('cloudant')(cloudantService.credentials.url);
 var request = require('request');
-var cfenv = require("cfenv"),
-    appEnv = cfenv.getAppEnv();
 
-// Get URLs for Catalog API
-var appName;
-if (appEnv.isLocal) {
-    require('dotenv').load();
-    appName = process.env.CF_APP_NAME;
-}
-else {
-    appName = JSON.parse(process.env.VCAP_APPLICATION).name;
-}
-var domainPrefix = appName.substr(0, appName.indexOf("insurance") + 10);
-var catalog_url = "https://" + domainPrefix + "catalog.mybluemix.net";
-
+console.log("Cloudant is", cloudantService);
+console.log("Catalog URL is", catalog_url);
 
 //Initiate the database.
 cloudant.db.create('orders', function(err/*, body*/) {
@@ -44,7 +32,7 @@ exports.create = function(req, res) {
                 break;
             }
         }
-        
+
         // If invalid policy, return error
         if (!validPolicy)
             return res.status(422).send({msg: 'Order request not completed due to invalid policy ID'});
@@ -59,7 +47,7 @@ exports.create = function(req, res) {
         });
     });
 };
-    
+
 
 /* find an order by id */
 exports.find = function(req, res) {
@@ -70,7 +58,7 @@ exports.find = function(req, res) {
         } else {
             res.send({msg:'Error: could not find item: ' + id});
         }
-    });	
+    });
 };
 
 /* list all orders */
