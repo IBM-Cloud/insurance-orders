@@ -1,7 +1,7 @@
 ---
 applications:
 - name: insurance-orders
-  path: .
-  instances: 1
+  host: insurance-orders
   memory: 128M
-  buildpack: sdk-for-nodejs
+  services:
+  - insurance-policy-db

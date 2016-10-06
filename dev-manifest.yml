@@ -1,0 +1,7 @@
+---
+applications:
+- name: dev-insurance-orders
+  host: dev-insurance-orders
+  memory: 128M
+  services:
+  - dev-insurance-policy-db

@@ -1,0 +1,18 @@
+{
+  "services": {
+    "cloudantNoSQLDB": [
+      {
+        "name": "insurance-policy-db",
+        "label": "cloudantNoSQLDB",
+        "plan": "Shared",
+        "credentials": {
+          "username": "",
+          "password": "",
+          "host": "",
+          "port": 443,
+          "url": ""
+        }
+      }
+    ]
+  }
+}
