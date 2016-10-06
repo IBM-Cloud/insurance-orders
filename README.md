@@ -1,6 +1,6 @@
-# CloudCo Insurance -  Orders
+# CloudCo Insurance - Orders
 
-| **master** | [![Build Status](https://travis-ci.org/IBM-Bluemix/insurance-orders.svg?branch=master)](https://travis-ci.org/IBM-Bluemix/iinsurance-orders) |
+| **master** | [![Build Status](https://travis-ci.org/IBM-Bluemix/insurance-orders.svg?branch=master)](https://travis-ci.org/IBM-Bluemix/insurance-orders) |
 | ----- | ----- |
 | **dev** | [![Build Status](https://travis-ci.org/IBM-Bluemix/insurance-orders.svg?branch=dev)](https://travis-ci.org/IBM-Bluemix/insurance-orders) |
 
