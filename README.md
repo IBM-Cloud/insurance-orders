@@ -10,60 +10,56 @@ This service is part of the larger [Cloud Insurance Co.](https://github.com/IBM-
 
 A Node.js app that serves as an API into the orders database for the [Cloud Insurance Co.](https://github.com/IBM-Bluemix/cloudco-insurance). To store the insurance policy orders, we use a [Cloudant NoSQL DB][cloudant_url].
 
-In order to deploy the full set of microservices involved in the insurance-store demo, check out the [insurance-toolchain repo][toolchain_url]. Otherwise, you can deploy just the app by following the steps here.
+In order to deploy the full set of microservices involved, check out the [insurance-toolchain repo][toolchain_url]. Otherwise, you can deploy just the app by following the steps here.
 
 ## Running the app on Bluemix
 
 1. If you do not already have a Bluemix account, [sign up here][bluemix_reg_url]
 
-2. Download and install the [Cloud Foundry CLI][cloud_foundry_url] tool
+1. Download and install the [Cloud Foundry CLI][cloud_foundry_url] tool
 
-3. Clone the app to your local environment from your terminal using the following command:
+1. The Orders microservice depends on the [Catalog microservice](https://github.com/IBM-Bluemix/insurance-catalog). Make sure to deploy the Catalog first.
+
+1. Clone the app to your local environment from your terminal using the following command:
 
   ```
   git clone https://github.com/IBM-Bluemix/insurance-orders.git
   ```
 
-4. `cd` into this newly created directory
+1. `cd` into this newly created directory
 
-5. Open the `manifest.yml` file and change the `host` value to something unique.
+1. Open the `manifest.yml` file and change the `host` value to something unique.
 
   The host you choose will determinate the subdomain of your application's URL:  `<host>.mybluemix.net`
 
-6. Connect to Bluemix in the command line tool and follow the prompts to log in
+1. Connect to Bluemix in the command line tool and follow the prompts to log in
 
   ```
-  $ cf login -a https://api.ng.bluemix.net
+  cf login -a https://api.ng.bluemix.net
   ```
 
-7. Create the [Cloudant service][cloudant_service_url] in Bluemix
+1. Create the [Cloudant service][cloudant_service_url] in Bluemix
 
   ```
-  $ cf create-service cloudantNoSQLDB Shared policy-db
+  cf create-service cloudantNoSQLDB Lite insurance-policy-db
   ```
 
-8. Push the app to Bluemix
+1. Push the app to Bluemix
 
   ```
-  $ cf push --no-start
-  ```
-
-9. Bind the Cloudant service to your app
-
-  ```
-  $ cf bind-service insurance-orders policy-db
+  cf push --no-start
   ```
 
 1. Define a variable pointing to the Catalog API deployment.
 
   ```
-  cf set-env insurance-orders CATALOG_URL https://your-catalog-api-server.mybluemix.net
+  cf set-env insurance-orders CATALOG_URL https://your-insurance-catalog.mybluemix.net
   ```
 
 1. Start your app
 
   ```
-  $ cf start insurance-orders
+  cf start insurance-orders
   ```
 
 And voila! You now have your very own instance of the Insurance Orders API running on Bluemix.
@@ -74,6 +70,8 @@ And voila! You now have your very own instance of the Insurance Orders API runni
 
 2. If you have not already, [download Node.js][download_node_url] and install it on your local machine.
 
+1. The Orders microservice depends on the [Catalog microservice](https://github.com/IBM-Bluemix/insurance-catalog). Make sure to deploy the Catalog first.
+
 3. Clone the app to your local environment from your terminal using the following command:
 
   ```
@@ -82,7 +80,7 @@ And voila! You now have your very own instance of the Insurance Orders API runni
 
 4. `cd` into this newly created directory
 
-5. Create a [Cloudant service][cloudant_service_url] named `policy-db` using your Bluemix account and replace the corresponding credentials in your `vcap-local.json` file
+5. Create a [Cloudant service][cloudant_service_url] named `insurance-policy-db` using your Bluemix account and replace the corresponding credentials in your `vcap-local.json` file - using `vcap-local.template.json` as template file.
 
 1. In the checkout directory, copy the file ```.template.env``` to ```.env```. Edit ```.env``` and update the location of the Catalog API.
 
