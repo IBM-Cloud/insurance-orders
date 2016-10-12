@@ -7,6 +7,9 @@ var path = require('path');
 var cors = require('cors');
 var appEnv = cfenv.getAppEnv();
 
+//---Deployment Tracker---------------------------------------------------------
+require("cf-deployment-tracker-client").track();
+
 // Setup the required environment variables
 var vcapLocal = null;
 try {
