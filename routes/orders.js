@@ -1,6 +1,11 @@
 /*eslint-env node */
 /*globals cloudantService catalog_url */
-var cloudant = require('cloudant')(cloudantService.credentials.url);
+var cloudant = require('cloudant')({
+  url: cloudantService.credentials.url,
+  plugin: 'retry',
+  retryAttempts: 10,
+  retryTimeout: 500
+});
 var request = require('request');
 
 console.log("Cloudant is", cloudantService);
